@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/public")
     @Operation(summary = "Endpoint público")
     public ResponseEntity<String> publicEndpoint() {
-        log.info("🔓 Acceso al endpoint público - IP: {}");
+        log.info("🔓 Acceso al endpoint público - ");
         return ResponseEntity.ok("Este es un endpoint público");
     }
 
@@ -33,7 +33,7 @@ public class UserController {
             security = @SecurityRequirement(name = "Bearer Authentication"))
     public ResponseEntity<String> authenticatedEndpoint(Authentication authentication) {
         String username = authentication.getName();
-        log.info("🔑 Usuario autenticado accediendo: {} - Roles: {} - IP: {}",
+        log.info("🔑 Usuario autenticado accediendo: {} - Roles: {} ",
                 username,
                 authentication.getAuthorities());
 
@@ -47,10 +47,9 @@ public class UserController {
     public ResponseEntity<String> adminEndpoint(Authentication authentication,
                                                 HttpServletRequest request) {
         String username = authentication.getName();
-        log.warn("⚡ Acceso administrativo detectado - Usuario: {} - Roles: {} - IP: {}",
+        log.warn("⚡ Acceso administrativo detectado - Usuario: {} - Roles: {} ",
             username,
-            authentication.getAuthorities(),
-            request.getRemoteAddr());
+            authentication.getAuthorities());
 
         return ResponseEntity.ok("Bienvenido administrador " + username);
     }
